@@ -113,10 +113,10 @@
                 <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                      <h1 class="mt-4">Create Debtor</h1>
+                      <h1 class="mt-4">Voting</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Create Debtor</li>
+                            <li class="breadcrumb-item active">Vote</li>
                         </ol>
                         <div class="row">
                           <div class="col-sm-6">
@@ -124,43 +124,23 @@
                               
                                 <div class="control-group">
                                 <div class="form-group floating-label-form-group ">
-                                    <label for="debtorName">Name</label>
-                                    <input class="form-control" id="debtorName" type="text" placeholder="Debtor Name" required="required" data-validation-required-message="Please enter your Debtor Name." />
+                                    <label for="debtorName">Election ID</label>
+                                    <input class="form-control" id="eid" type="text" placeholder="Election ID" required="required" data-validation-required-message="Please enter your Debtor Name." />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             <div class="control-group">
                                 <div class="form-group floating-label-form-group ">
-                                    <label for="debtorAddress">Ethereum Account</label>
-                                    <input class="form-control" id="debtorAddress" type="text" placeholder="Ethereum Account" required="required" data-validation-required-message="Please enter your Debtor Name." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    <label for="debtorLocation">Country</label>
-                                    <input class="form-control" id="debtorLocation" type="text" placeholder="Debtor Location" required="required" data-validation-required-message="Please enter your Debtor Location." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    <label for="debtorTelephone">Telephone</label>
-                                    <input class="form-control" id="debtorTelephone" type="text" placeholder="Debtor Contact Number" required="required" data-validation-required-message="Please enter your Debtor Contact Number." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    <label for="debtorEmail">Email</label>
-                                    <input class="form-control" id="debtorEmail" type="text" placeholder="Debtor Email" required="required" data-validation-required-message="Please enter your Debtor Email." />
+                                    <label for="debtorAddress">Election Choice</label>
+                                    <input class="form-control" id="echoice" type="text" placeholder="Election Choice" required="required" data-validation-required-message="Please enter your Debtor Name." />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
                             
+                            
                             <br />
                             <div id="success"></div>
-                            <div class="form-group"><button class="btn btn-primary btn-lg" id="debtorCreate">Create</button></div>
+                            <div class="form-group"><button class="btn btn-primary btn-lg" id="electionVote">Vote</button></div>
                               
                           </div>
                       </div>

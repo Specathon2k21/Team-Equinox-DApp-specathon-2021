@@ -59,7 +59,7 @@ contract Election {
         elections[noOfElections].id=noOfElections;
         elections[noOfElections].option1=_c1;
         elections[noOfElections].option2=_c2;
-        elections[noOfElections].state=ElectionState.CREATED;
+        elections[noOfElections].state=ElectionState.OPEN;
         elections[noOfElections].optCount1=0;
         elections[noOfElections].optCount2=0;
         elections[noOfElections].isPermissionLess=_permission;

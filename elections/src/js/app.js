@@ -280,6 +280,20 @@ App = {
       });
     });
 
+    $("#electionVote").click(async function () {
+      var eid = $("#eid").val();
+      var echoice = $("#echoice").val();
+
+      App.contracts.Election.deployed().then(function(instance) {
+        console.log("Here");
+        return instance.vote(eid, echoice, { 
+          from: App.account 
+        }).then(function(result) {
+          console.log(result);
+        })
+      });
+    });
+
     
 
     //Invoice Acknowledgement

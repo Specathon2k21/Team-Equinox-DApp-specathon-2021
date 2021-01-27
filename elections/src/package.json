@@ -1,0 +1,36 @@
+{
+  "name": "bfactor",
+  "version": "1.0.0",
+  "description": "blockchain based factoring protocol",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "dev": "lite-server",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/SherifSK/BFactor.git"
+  },
+  "author": "Sherif Elkhouly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SherifSK/BFactor/issues"
+  },
+  "homepage": "https://github.com/SherifSK/BFactor#readme",
+  "dependencies": {
+    "chai-as-promised": "^7.1.1",
+    "startbootstrap-sb-admin": "^6.0.1",
+    "truffle-assertions": "^0.9.2",
+    "truffle-flattener": "^1.4.4"
+  },
+  "devDependencies": {
+    "@openzeppelin/cli": "^2.8.2",
+    "@openzeppelin/contracts": "^3.2.0",
+    "chai": "^4.2.0",
+    "chai-bignumber": "^3.0.0",
+    "lite-server": "^2.5.4"
+  }
+}

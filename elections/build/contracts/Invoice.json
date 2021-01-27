@@ -1,0 +1,644 @@
+{
+  "contractName": "Invoice",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.6.2+commit.bacdbe57\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Invoice.sol\":\"Invoice\"},\"evmVersion\":\"petersburg\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":100},\"remappings\":[]},\"sources\":{\"/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Business.sol\":{\"keccak256\":\"0xa2b068c4660486b8344fa6f0485bed21d0069b6b810ea482a4747e019374b0f3\",\"urls\":[\"bzz-raw://cbc3beb98b6e134e21eb9ba9f37a60d273bce7820b7f1ff0dfc212e7164b0305\",\"dweb:/ipfs/QmbzxrFcx9qBVwtBQYVnXkpZgH8ezGjpVsev69Qxqu8PWV\"]},\"/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Debtor.sol\":{\"keccak256\":\"0x6a9061d8a9f2c6302e8b09b5484f1c6a9b6c42f64079aefee1b35999a4fa0cbc\",\"urls\":[\"bzz-raw://51c7acf6ce2f66df2d51430055f6e5aefab32da3809679b90d7dc9e0dd8b6421\",\"dweb:/ipfs/QmYcRB8ytkKHndYUpJsQE389y6BtCEH24YfW7HFtQqSskC\"]},\"/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Invoice.sol\":{\"keccak256\":\"0x967b04eb18cf0e6bc93421614977c95dde1e9d1fe787c3e29d8b95af13276416\",\"urls\":[\"bzz-raw://6ad45b70e8aa0fc9dc1abd1f1941122aea565e83cc33e2fc187f992b12250d57\",\"dweb:/ipfs/QmTfKdrZd6WMmiUTeymUko4yuFYg2y7DudxDLxvvUnGMDR\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220cc2e2d11d19e9cb9ab06040d5da6320107e9693ad8a25b130734da45ce53012664736f6c63430006020033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220cc2e2d11d19e9cb9ab06040d5da6320107e9693ad8a25b130734da45ce53012664736f6c63430006020033",
+  "sourceMap": "115:261:6:-:0;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;115:261:6;;;;;;;",
+  "deployedSourceMap": "115:261:6:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.25 <0.7.0;\n\nimport \"./Business.sol\";\nimport \"./Debtor.sol\";\n\ncontract Invoice {\n    enum invoiceState { Created, Pending, Acknowledged, Offered, Factorable, Factored, Settled }\n\n    Business owner;\n    Debtor issuedTo;\n    uint amount;\n    address paidTo;\n    invoiceState state;\n    mapping(address => uint) signatures;\n}",
+  "sourcePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Invoice.sol",
+  "ast": {
+    "absolutePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Invoice.sol",
+    "exportedSymbols": {
+      "Invoice": [
+        2426
+      ]
+    },
+    "id": 2427,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2401,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".25",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:6"
+      },
+      {
+        "absolutePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Business.sol",
+        "file": "./Business.sol",
+        "id": 2402,
+        "nodeType": "ImportDirective",
+        "scope": 2427,
+        "sourceUnit": 1554,
+        "src": "66:24:6",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Debtor.sol",
+        "file": "./Debtor.sol",
+        "id": 2403,
+        "nodeType": "ImportDirective",
+        "scope": 2427,
+        "sourceUnit": 2373,
+        "src": "91:22:6",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2426,
+        "linearizedBaseContracts": [
+          2426
+        ],
+        "name": "Invoice",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Invoice.invoiceState",
+            "id": 2411,
+            "members": [
+              {
+                "id": 2404,
+                "name": "Created",
+                "nodeType": "EnumValue",
+                "src": "158:7:6"
+              },
+              {
+                "id": 2405,
+                "name": "Pending",
+                "nodeType": "EnumValue",
+                "src": "167:7:6"
+              },
+              {
+                "id": 2406,
+                "name": "Acknowledged",
+                "nodeType": "EnumValue",
+                "src": "176:12:6"
+              },
+              {
+                "id": 2407,
+                "name": "Offered",
+                "nodeType": "EnumValue",
+                "src": "190:7:6"
+              },
+              {
+                "id": 2408,
+                "name": "Factorable",
+                "nodeType": "EnumValue",
+                "src": "199:10:6"
+              },
+              {
+                "id": 2409,
+                "name": "Factored",
+                "nodeType": "EnumValue",
+                "src": "211:8:6"
+              },
+              {
+                "id": 2410,
+                "name": "Settled",
+                "nodeType": "EnumValue",
+                "src": "221:7:6"
+              }
+            ],
+            "name": "invoiceState",
+            "nodeType": "EnumDefinition",
+            "src": "138:92:6"
+          },
+          {
+            "constant": false,
+            "id": 2413,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "236:14:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_Business_$1553",
+              "typeString": "contract Business"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2412,
+              "name": "Business",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1553,
+              "src": "236:8:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Business_$1553",
+                "typeString": "contract Business"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2415,
+            "name": "issuedTo",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "256:15:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_Debtor_$2372",
+              "typeString": "contract Debtor"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2414,
+              "name": "Debtor",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2372,
+              "src": "256:6:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Debtor_$2372",
+                "typeString": "contract Debtor"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2417,
+            "name": "amount",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "277:11:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 2416,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "277:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2419,
+            "name": "paidTo",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "294:14:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 2418,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "294:7:6",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2421,
+            "name": "state",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "314:18:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_enum$_invoiceState_$2411",
+              "typeString": "enum Invoice.invoiceState"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2420,
+              "name": "invoiceState",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2411,
+              "src": "314:12:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_enum$_invoiceState_$2411",
+                "typeString": "enum Invoice.invoiceState"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2425,
+            "name": "signatures",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "338:35:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 2424,
+              "keyType": {
+                "id": 2422,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "346:7:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "338:24:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 2423,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "357:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 2427,
+        "src": "115:261:6"
+      }
+    ],
+    "src": "32:344:6"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Invoice.sol",
+    "exportedSymbols": {
+      "Invoice": [
+        2426
+      ]
+    },
+    "id": 2427,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 2401,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.4",
+          ".25",
+          "<",
+          "0.7",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:32:6"
+      },
+      {
+        "absolutePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Business.sol",
+        "file": "./Business.sol",
+        "id": 2402,
+        "nodeType": "ImportDirective",
+        "scope": 2427,
+        "sourceUnit": 1554,
+        "src": "66:24:6",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "absolutePath": "/home/lmedury/post-covid-hack/BFactor/bfactor/contracts/Debtor.sol",
+        "file": "./Debtor.sol",
+        "id": 2403,
+        "nodeType": "ImportDirective",
+        "scope": 2427,
+        "sourceUnit": 2373,
+        "src": "91:22:6",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 2426,
+        "linearizedBaseContracts": [
+          2426
+        ],
+        "name": "Invoice",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "canonicalName": "Invoice.invoiceState",
+            "id": 2411,
+            "members": [
+              {
+                "id": 2404,
+                "name": "Created",
+                "nodeType": "EnumValue",
+                "src": "158:7:6"
+              },
+              {
+                "id": 2405,
+                "name": "Pending",
+                "nodeType": "EnumValue",
+                "src": "167:7:6"
+              },
+              {
+                "id": 2406,
+                "name": "Acknowledged",
+                "nodeType": "EnumValue",
+                "src": "176:12:6"
+              },
+              {
+                "id": 2407,
+                "name": "Offered",
+                "nodeType": "EnumValue",
+                "src": "190:7:6"
+              },
+              {
+                "id": 2408,
+                "name": "Factorable",
+                "nodeType": "EnumValue",
+                "src": "199:10:6"
+              },
+              {
+                "id": 2409,
+                "name": "Factored",
+                "nodeType": "EnumValue",
+                "src": "211:8:6"
+              },
+              {
+                "id": 2410,
+                "name": "Settled",
+                "nodeType": "EnumValue",
+                "src": "221:7:6"
+              }
+            ],
+            "name": "invoiceState",
+            "nodeType": "EnumDefinition",
+            "src": "138:92:6"
+          },
+          {
+            "constant": false,
+            "id": 2413,
+            "name": "owner",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "236:14:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_Business_$1553",
+              "typeString": "contract Business"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2412,
+              "name": "Business",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 1553,
+              "src": "236:8:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Business_$1553",
+                "typeString": "contract Business"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2415,
+            "name": "issuedTo",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "256:15:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_contract$_Debtor_$2372",
+              "typeString": "contract Debtor"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2414,
+              "name": "Debtor",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2372,
+              "src": "256:6:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_contract$_Debtor_$2372",
+                "typeString": "contract Debtor"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2417,
+            "name": "amount",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "277:11:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_uint256",
+              "typeString": "uint256"
+            },
+            "typeName": {
+              "id": 2416,
+              "name": "uint",
+              "nodeType": "ElementaryTypeName",
+              "src": "277:4:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_uint256",
+                "typeString": "uint256"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2419,
+            "name": "paidTo",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "294:14:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_address",
+              "typeString": "address"
+            },
+            "typeName": {
+              "id": 2418,
+              "name": "address",
+              "nodeType": "ElementaryTypeName",
+              "src": "294:7:6",
+              "stateMutability": "nonpayable",
+              "typeDescriptions": {
+                "typeIdentifier": "t_address",
+                "typeString": "address"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2421,
+            "name": "state",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "314:18:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_enum$_invoiceState_$2411",
+              "typeString": "enum Invoice.invoiceState"
+            },
+            "typeName": {
+              "contractScope": null,
+              "id": 2420,
+              "name": "invoiceState",
+              "nodeType": "UserDefinedTypeName",
+              "referencedDeclaration": 2411,
+              "src": "314:12:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_enum$_invoiceState_$2411",
+                "typeString": "enum Invoice.invoiceState"
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 2425,
+            "name": "signatures",
+            "nodeType": "VariableDeclaration",
+            "overrides": null,
+            "scope": 2426,
+            "src": "338:35:6",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+              "typeString": "mapping(address => uint256)"
+            },
+            "typeName": {
+              "id": 2424,
+              "keyType": {
+                "id": 2422,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "346:7:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "338:24:6",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_address_$_t_uint256_$",
+                "typeString": "mapping(address => uint256)"
+              },
+              "valueType": {
+                "id": 2423,
+                "name": "uint",
+                "nodeType": "ElementaryTypeName",
+                "src": "357:4:6",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_uint256",
+                  "typeString": "uint256"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          }
+        ],
+        "scope": 2427,
+        "src": "115:261:6"
+      }
+    ],
+    "src": "32:344:6"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.6.2+commit.bacdbe57.Linux.g++"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xac60D147cbc0fD3d1a16Dfa59C23DFD7eFDF0675",
+      "transactionHash": "0x6f52a39280c4935f9e717ead561f28df5b9e518f2c8426fdb8bcffa50bed1515"
+    }
+  },
+  "schemaVersion": "3.3.2",
+  "updatedAt": "2020-11-26T10:10:53.016Z",
+  "networkType": "ethereum",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

@@ -43,6 +43,8 @@
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
@@ -50,73 +52,55 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                            <div class="sb-sidenav-menu-heading">Business</div>
+                            <div class="sb-sidenav-menu-heading">Equinox</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Invoice
+                                Host
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="createInvoice.html">Submit Invoice</a>
-                                    <a class="nav-link" href="acknowledgeInvoice.html">Acknowledge Invoice</a>
-                                    <a class="nav-link" href="offerInvoice.html">Offer Invoice</a>
-                                    <a class="nav-link" href="acceptInvoice.html">Accept Invoice</a>
-                                    <a class="nav-link" href="rejectInvoice.html">Reject Invoice</a>
+                                    <a class="nav-link" href="createInvoice.html">Create an Election</a>
+                                    <a class="nav-link" href="createFactor.html">Close an Election</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Offer
+                                Vote
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="createOffer.html">Create Offer</a>
-                                    <a class="nav-link" href="acceptOffer.html">Accept Offer</a>
-                                    <a class="nav-link" href="rejectOffer.html">Reject Offer</a>
+                                    <a class="nav-link" href="createDebtor.html">Vote In Election</a>
+                                    
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Transactions
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseTrans" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="sendAdvanceRate.html">Send Advance</a>
-                                    <a class="nav-link" href="withdrawAdvanceRate.html">Withdraw Advance</a>
-                                    <a class="nav-link" href="settleInvoice.html">Settle Invoice</a>
-                                    <a class="nav-link" href="sendRemaining.html">Send Remaining</a>
-                                </nav>
-                            </div>
+                            
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSetup" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Setup
+                                Account
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseSetup" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="createBusiness.html">Business</a>
-                                    <a class="nav-link" href="createFactor.html">Factor</a>
-                                    <a class="nav-link" href="createDebtor.html">Debtor</a>
+                                    <a class="nav-link" href="createBusiness.html">Register</a>
+                                    
                                 </nav>
                             </div>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Business
-                    </div>
+                    
+                </nav>
+            </div>
                 </nav>
             </div>
         <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid">
-                      <h1 class="mt-4">Create Factor</h1>
+                      <h1 class="mt-4">Close Election</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Create Factor</li>
+                            <li class="breadcrumb-item active">Close Election</li>
                         </ol>
                         <div class="row text-center">
                           <div class="col-sm-6 mx-auto">
@@ -125,43 +109,14 @@
                                   <div class="control-group">
                                 <div class="form-group floating-label-form-group ">
                                     
-                                    <input class="form-control" id="factorName" type="text" placeholder="Factor Name" required="required" data-validation-required-message="Please enter your Factor Name." />
+                                    <input class="form-control" id="closeEid" type="text" placeholder="Election ID" required="required" data-validation-required-message="Please enter your Debtor Name." />
                                     <p class="help-block text-danger"></p>
                                 </div>
                             </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    
-                                    <input class="form-control" id="factorAddress" type="text" placeholder="Factor Address" required="required" data-validation-required-message="Please enter your Factor Address." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    
-                                    <input class="form-control" id="factorLocation" type="text" placeholder="Factor Location" required="required" data-validation-required-message="Please enter your Factor Location." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    
-                                    <input class="form-control" id="factorTelephone" type="text" placeholder="Factor Telephone" required="required" data-validation-required-message="Please enter your Factor telehone." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
-
-                            <div class="control-group">
-                                <div class="form-group floating-label-form-group ">
-                                    
-                                    <input class="form-control" id="factorEmail" type="text" placeholder="Factor Email" required="required" data-validation-required-message="Please enter your Factor email." />
-                                    <p class="help-block text-danger"></p>
-                                </div>
-                            </div>
+                           
                             <br />
                             <div id="success"></div>
-                            <div class="form-group"><button class="btn btn-primary btn-lg" id="factorCreate">Create</button></div>
+                            <div class="form-group"><button class="btn btn-primary btn-lg" id="closeElection">Close</button></div>
 
                               
                           </div>

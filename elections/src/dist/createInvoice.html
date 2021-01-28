@@ -39,6 +39,8 @@
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <<div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
@@ -49,61 +51,44 @@
                             <div class="sb-sidenav-menu-heading">Equinox</div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                Election
+                                Host
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="createInvoice.html">Submit Invoice</a>
-                                    <a class="nav-link" href="acknowledgeInvoice.html">Acknowledge Invoice</a>
-                                    <a class="nav-link" href="offerInvoice.html">Offer Invoice</a>
-                                    <a class="nav-link" href="acceptInvoice.html">Accept Invoice</a>
-                                    <a class="nav-link" href="rejectInvoice.html">Reject Invoice</a>
+                                    <a class="nav-link" href="createInvoice.html">Create an Election</a>
+                                    <a class="nav-link" href="createFactor.html">Close an Election</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Offer
+                                Vote
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="createOffer.html">Create Offer</a>
-                                    <a class="nav-link" href="acceptOffer.html">Accept Offer</a>
-                                    <a class="nav-link" href="rejectOffer.html">Reject Offer</a>
+                                    <a class="nav-link" href="createDebtor.html">Vote In Election</a>
+                                    
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Transactions
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseTrans" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="sendAdvanceRate.html">Send Advance</a>
-                                    <a class="nav-link" href="withdrawAdvanceRate.html">Withdraw Advance</a>
-                                    <a class="nav-link" href="settleInvoice.html">Settle Invoice</a>
-                                    <a class="nav-link" href="sendRemaining.html">Send Remaining</a>
-                                </nav>
-                            </div>
+                            
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSetup" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Setup
+                                Account
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseSetup" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="createBusiness.html">Business</a>
-                                    <a class="nav-link" href="createFactor.html">Factor</a>
-                                    <a class="nav-link" href="createDebtor.html">Debtor</a>
+                                    <a class="nav-link" href="createBusiness.html">Register</a>
+                                    
                                 </nav>
                             </div>
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Business
-                    </div>
+                    
+                </nav>
+            </div>
+                   
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -129,19 +114,15 @@
                                     </div>
                                     <div class="form-group floating-label-form-group ">
                                         <label for="businessName">Candidate 1 Name</label>
-                                        <input class="form-control" id="cd1" type="text" placeholder="Description"required="required" data-validation-required-message="Candidate 1 Name" />
+                                        <input class="form-control" id="cd1" type="text" placeholder="Candidate 1"required="required" data-validation-required-message="Candidate 1 Name" />
                                         <p class="help-block text-danger"></p>
                                     </div>
                                     <div class="form-group floating-label-form-group ">
                                         <label for="businessName">Candidate 2 Name</label>
-                                        <input class="form-control" id="cd2" type="text" placeholder="Description"required="required" data-validation-required-message="Candidate 2 Name" />
+                                        <input class="form-control" id="cd2" type="text" placeholder="Candidate 2"required="required" data-validation-required-message="Candidate 2 Name" />
                                         <p class="help-block text-danger"></p>
                                     </div>
-                                    <div class="form-group floating-label-form-group ">
-                                        <label for="businessName">Permission or Permissionless?</label>
-                                        <input class="form-control" id="permission" type="text" placeholder="0 for Permissionless and 1 for permissioned"required="required" data-validation-required-message="Please enter your Description" />
-                                        <p class="help-block text-danger"></p>
-                                    </div>
+                                    
                                     
                                   </div>
                                   

@@ -4,8 +4,8 @@ contract Election {
     
     enum ElectionState {CREATED, OPEN, ENDED}
     
-    uint noOfElections;
-    uint noOfUsers;
+    uint public noOfElections;
+    uint public noOfUsers;
     
     constructor() public {
         noOfElections=0;
@@ -30,9 +30,10 @@ contract Election {
         string name;
     }
     
-    mapping(address => user) users;
+    mapping(address => user) public users;
+    mapping(address => bool) public registrations;
     
-    mapping(uint => election) elections;
+    mapping(uint => election) public elections;
     
     modifier electionActive (uint _id) {
         require(
@@ -52,9 +53,11 @@ contract Election {
         noOfUsers++;
         users[msg.sender].userAddress=msg.sender;
         users[msg.sender].name=_name;
+        registrations[msg.sender]=true;
     }
     
     function createElection(string memory _c1, string memory _c2, bool _permission, string memory _description, uint256 _expiry) public{
+        require(registrations[msg.sender]);
         noOfElections++;
         elections[noOfElections].id=noOfElections;
         elections[noOfElections].option1=_c1;
@@ -70,6 +73,7 @@ contract Election {
     
     //TODO Ensure not more than one votes are counted
     function vote(uint _electionId, uint _choice) electionActive(_electionId) public{
+        require(registrations[msg.sender]);
         if(_choice==1){
             elections[_electionId].optCount1++;
         }

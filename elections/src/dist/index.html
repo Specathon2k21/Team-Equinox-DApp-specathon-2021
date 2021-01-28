@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Dashboard - BFactor</title>
+        <title>Dashboard-Equinox</title>
         <link href="css/styles.css" rel="stylesheet" />
         <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
@@ -56,6 +56,7 @@
                             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="createInvoice.html">Create an Election</a>
+                                    <a class="nav-link" href="createFactor.html">Close an Election</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
@@ -69,19 +70,7 @@
                                     
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTrans" aria-expanded="false" aria-controls="collapsePages">
-                                <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                                Factoring
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseTrans" aria-labelledby="headingTwo" data-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="sendAdvanceRate.html">Send Advance</a>
-                                    <a class="nav-link" href="withdrawAdvanceRate.html">Withdraw Advance</a>
-                                    <a class="nav-link" href="settleInvoice.html">Settle Invoice</a>
-                                    <a class="nav-link" href="sendRemaining.html">Send Remaining</a>
-                                </nav>
-                            </div>
+                            
                             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSetup" aria-expanded="false" aria-controls="collapsePages">
                                 <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
                                 Account
@@ -157,19 +146,21 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-xl-6">
+                            <div class="col-xl-12">
                                 <div class="card mb-4">
                                     <div class="card-header">
                                         <i class="fas fa-chart-area mr-1"></i>
-                                        Pending Invoices
+                                        Elections Active
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table id="invoicesTable" class="table table-bordered" width="100%" cellspacing="0">
+                                            <table id="electionsActive" class="table table-bordered" width="100%" cellspacing="0">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">Invoice ID</th>
-                                                        <th scope="col">Issued To</th> 
+                                                        <th scope="col">Election ID</th>
+                                                        <th scope="col">Description</th>
+                                                        <th scope="col">Candidate 1</th> 
+                                                        <th scope="col">Candidate 2</th> 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -180,45 +171,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-6">
-                                <div class="card mb-4">
-                                    <div class="card-header">
-                                        <i class="fas fa-chart-bar mr-1"></i>
-                                        Pending Offers
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-bordered" id="offersTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th scope="col">Offer ID</th>
-                                                        <th scope="col">Advance Rate</th>
-                                                        <th scope="col">Offered By</th>
-                                                      </tr>
-                                                </thead>
-                                                <tbody>
-                                                    
-                                                  </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table mr-1"></i>
-                                My Invoices
+                                Election Results
                             </div>
                             <div class="card-body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="statusTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered" id="electionsClosed" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
-                                                <th>Invoice ID</th>
-                                                <th>Issued To</th>
-                                                
-                                                <th>Status</th>
+                                                <th>Election ID</th>
+                                                <th>Description</th>
+                                                <th>Candidate 1</th>
+                                                <th>Candidate 2</th>
+                                                <th>Winner</th>
                                             </tr>
                                         </thead>
                                         <tbody>

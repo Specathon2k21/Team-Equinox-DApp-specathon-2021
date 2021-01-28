@@ -66,7 +66,7 @@ App = {
     
     App.contracts.Election.deployed().then(function(instance) {
       electionContract = instance;
-      return instance.debtorsCount.call();
+      return instance.noOfElections.call();
     }).then(function(dCount) {
       //console.log("debtors:" + dCount);
       var debtorsSelect = $('#debtorsSelect');
@@ -150,17 +150,52 @@ App = {
     });
 
     //Display the list of submitted invoices in the offer Invoice page
+    var electionContract;
     App.contracts.Election.deployed().then(function(instance) {
       electionContract = instance;
-      console.log("offer invoice");
-      return electionContract.invoicesCount.call();
-    }).then(function(invoicesCount) {
-      console.log("invoices count" + invoicesCount);
+      
+      return electionContract.getNumberOfElection()
+    }).then(function(electionCount) {
+      console.log("electionCount " + electionCount);
 
-      for(var i=1; i <= invoicesCount; i++) {
-        console.log("loop");
-        electionContract.invoices(i).then(function(invoice) {
-          if(invoice[5] == 2) {
+      
+      for(var i=1; i <= electionCount; i++) {
+        
+        electionContract.elections(i).then(function(election) {
+          console.log(election[1].c[0]);
+          var state=election[1].c[0];
+          if(state==1){
+            
+            var eid=election[0].c[0];
+            var c1=election[2];
+            var c2=election[3];
+            var desc=election[8];
+            console.log(desc);
+            var candidateTemplate = "<tr><th>" + eid + "</th><td>" + desc + "</td><td>" + c1 + "</td><td>" + c2 + "</td></tr>";
+            $("#electionsActive").append(candidateTemplate);
+          }
+          else if(state==2){
+            var eid=election[0].c[0];
+            var c1=election[2];
+            var c2=election[3];
+            var count1=election[4].c[0];
+            var count2=election[5].c[0];
+            var desc=election[8];
+            var candidateTemplate;
+            if(count1>count2){
+              candidateTemplate = "<tr><th>" + eid + "</th><td>" + desc + "</td><td><strong>" + c1 + " - " + count1 +  "</strong></td><td>" + c2 + " - " + count2 + "</td><td><strong>"+ c1 + "</strong></td></tr>";
+            }
+            else if(count1<count2){
+              candidateTemplate = "<tr><th>" + eid + "</th><td>" + desc + "</td><td>" + c1 + " - " + count1 +  "</td><td><strong>" + c2 + " - " + count2 + "</td><td><strong>"+ c2 + "</strong></td></tr>";
+            }
+            else if(count1==count2){
+              candidateTemplate = "<tr><th>" + eid + "</th><td>" + desc + "</td><td><strong>" + c1 + " - " + count1 +  "</strong></td><td><strong>" + c2 + " - " + count2 + "</td><td><strong>"+ "Tie" + "</strong></td></tr>";
+            }
+            
+            $("#electionsClosed").append(candidateTemplate);
+          }
+          /*
+          if(election[1] == 1) {
             var invoiceID = invoice[0];
             var invoiceDebtor = invoice[2];
             var invoiceAmount = invoice[3]
@@ -171,32 +206,13 @@ App = {
             var invoiceTemplate = "<tr><td class=\"invid\">" + invoiceID + "<td class=\"invDebtor\">" + invoiceDebtor + "</td><td class=\"invAmount\">" + invoiceAmount + "</td><td><input type=\"button\" class=\"offerbtn btn btn-primary\"id=\"offerInvoice\" value=\"Offer\"/></td></tr>";
             $("#toOfferInvoicesList").append(invoiceTemplate);
           }
+          */
         })
       }
+      
     });
 
-    //Display the list of submitted offers in the Accept Offers page
-    App.contracts.Election.deployed().then(function(instance) {
-      electionContract = instance;
-      return electionContract.offersCount.call();
-    }).then(function(offersCount) {
-      console.log("offers count" + offersCount);
-
-      for(var i=1; i <= offersCount; i++) {
-        electionContract.offers(i).then(function(offer) {
-          console.log(offer[3]);
-          //if(offer[3] === 0) {
-            var invoiceID = offer[0];
-            var advanceRate = offer[1];
-            var discountRate = offer[2];
-
-            //console.log("inv debtor" + invoiceDebtor);
-            var commitTemplate = "<tr><td class=\"offId\">" + i + "</td><td class=\"invid\">" + invoiceID + "</td><td class=\"offAdv\">" + advanceRate + "</td><td class=\"offDis\">" + discountRate + "</td><td><input type=\"button\" class=\"acceptbtn btn btn-primary btn-lg\"id=\"acceptOffer\" value=\"Accept\"/></td></tr>";
-            $("#offersList").append(commitTemplate);
-          //}
-        })
-      }
-    });
+    
 
     InvoiceStates=["Created","Pending","Acknowledged","Offered","Factorable","Factored","Settled"];
 
@@ -207,11 +223,13 @@ App = {
       
 
       var usersCount=dCount.c[0];
-      console.log(usersCount);
+      
       $("#noOfUsers").html(usersCount);
       
     });
+
     App.contracts.Election.deployed().then(function(instance) {
+      electionContract=instance;
       return instance.getNumberOfElection();
     }).then(function(dCount) {
       
@@ -219,6 +237,8 @@ App = {
       var electionsCount=dCount.c[0];
       
       $("#noOfElections").html(electionsCount);
+      
+      
       
     });
 
@@ -246,14 +266,11 @@ App = {
     });
 
     //Create factor
-    $("#factorCreate").click(async function () {
-      var factorName = $("#factorName").val();
-      var address = $("#factorAddress").val();
-      var location = $("#factorLocation").val();
-      var telephone = $("#factorTelephone").val();
-      var email = $("#factorEmail").val();
+    $("#closeElection").click(async function () {
+      var eid = $("#closeEid").val();
+      
       App.contracts.Election.deployed().then(function(instance) {
-        return instance.createFactor(factorName, address, location, telephone, email, { 
+        return instance.closeElection(eid, { 
           from: App.account 
         }).then(function(result) {
           console.log(result);
@@ -265,14 +282,14 @@ App = {
     $("#createElection").click(async function () {
       var c1 = $("#cd1").val();
       var c2 = $("#cd2").val();
-      var desc = $("#permission").val();
-      var permission = $("#electionDesc").val();
+      var desc = $("#electionDesc").val();
+      
       
 
 
       App.contracts.Election.deployed().then(function(instance) {
         console.log("Here");
-        return instance.createElection(c1, c2, true, permission, 0, { 
+        return instance.createElection(c1, c2, true, desc, 0, { 
           from: App.account 
         }).then(function(result) {
           console.log(result);
@@ -655,14 +672,6 @@ App = {
                 
               })
               
-              /*
-              App.contracts.Election.deployed().then(function(instance) {
-                electionContract = instance;
-                return electionContract.acceptOffer($offerID)
-              }).then(function(error) {
-                if (error) console.log(error);
-              })
-              */
             }
           });
         }
@@ -670,133 +679,9 @@ App = {
       });      
     
 
-    
-
-      //console.log(invoice.amount);
-      //let weiValue=web3.utils.toWei(invoice.amount.toString(),'wei');
-      //console.log(weiValue);
-      /*
-      
-      */
     });
 
-    $("#withdrawAdvance").click(async function () {
-      var id = $("#withdrawInvID").val();
 
-      App.contract.withdrawAdvanceRate(id, { from: App.account }, function (error, result) {
-        if (error) console.log(error);
-        else console.log(result);
-
-        console.log(id);
-      });
-    });
-
-    $("#settleInvoice").click(async function () {
-      var id = $("#settleInvID").val();
-
-
-      //Converting int to string as web3 utils require us to do so
-      //converting string to wei eventualls
-      //var weiValue=window.web3.utils.toWei(advanceRate.toString(), 'wei')
-
-      //Not working yet    
-      /*
-      
-      App.contract.settleInvoice(id,{from: App.account, value:weiValue},function(error,result){
-      if(error) console.log(error);
-      else console.log(result);
-      */
-      console.log(id);
-    });
-    //});
-
-    $("#sendRemaining").click(async function () {
-      var id = $("#sendRemainingAmount").val();
-
-
-      //Converting int to string as web3 utils require us to do so
-      //converting string to wei eventualls
-      //var weiValue=window.web3.utils.toWei(advanceRate.toString(), 'wei')
-
-      /*
-      App.contract.sendRemaining(id,{from: App.account, value:weiValue},function(error,result){
-      if(error) console.log(error);
-      else console.log(result);
-      */
-      console.log(id);
-    });
-
-    /*
-  web3.eth.getCoinbase(function(err,account){
-    if(!err){
-
-  App.contract.dataStoring.call(account, function(error,thisData){
-    if(!error){
-      var thisEvents = $("#MyEvents");
-      var id=thisData[0];
-      var quantity=thisData[1];
-      var refId=thisData[2];
-      var sellerAddress=thisData[3];
-
-      var template= "<tr><th>" + id + "</th><td>" + quantity + "</td><td>" + refId + "</td><td>" + sellerAddress + "</td></tr>" 
-      if(quantity!=0) thisEvents.append(template);
-    }
-    else console.log(error);
-      });
-    }
-  })
-
-  App.contract.getNumberOfEvents(function(error,value){
-    if(error) 
-      console.log(error);
-    else{
-  
-    var bookingEvents = $("#BookingEvents");
-    
-
-    for (var i = 1; i <= value; i++) {
-          
-          App.contract.Events.call( i, function(error,event) {
-          if(!error){
-
-          var id=event[0];
-          var name = event[1];
-          var price = event[5];
-          var status = event[6];
-          var time=event[7];
-          var date=event[8];
-          var quantity=event[9];
-          var venue=event[10];
-          var add=event[3];
-
-          var thisStatus;
-          if(quantity==0 && status==false){
-            thisStatus="Inactive";
-          }
-          else if(price!=0 && status==false){
-            thisStatus="Available for free";
-          }
-          else if(price!=0 && status==true && add==0x0000000000000000000000000000000000000000){
-            thisStatus="Active";
-          }
-
-          else if(add!=0x0000000000000000000000000000000000000000){
-            thisStatus="Booked";
-          }      
-          var bookingTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + price + "</td><td>" + date + "</td><td>" + time + "</td><td>" + quantity + "</td><td>" + venue + "</td><td>" + thisStatus + "</td></tr>" ;
-          
-          if(quantity!=0) bookingEvents.append(bookingTemplate);
-          }
-          else{
-            console.log(error);
-          }        
-        });
-    }
-    
-
-    }
-  });
-  */
   }
 }
 

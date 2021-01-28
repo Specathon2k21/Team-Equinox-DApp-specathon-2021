@@ -23,6 +23,7 @@ contract Election {
         uint256 expiryTime;
         string description;
         address creator;
+        mapping(address => bool) voted;
     }
     
     struct user{
@@ -74,12 +75,14 @@ contract Election {
     //TODO Ensure not more than one votes are counted
     function vote(uint _electionId, uint _choice) electionActive(_electionId) public{
         require(registrations[msg.sender]);
+        require(elections[_electionId].voted[msg.sender]==false);
         if(_choice==1){
             elections[_electionId].optCount1++;
         }
         else if(_choice==2){
             elections[_electionId].optCount2++;
         }
+        elections[_electionId].voted[msg.sender]=true;
     }
     
     function closeElection(uint _electionId) electionActive(_electionId) electionCreator(msg.sender, _electionId) public {

@@ -260,8 +260,11 @@ App = {
         return instance.register(userName, {
           from: App.account
         }).then(function(result) {
+          document.getElementById("regSuccess").style.display="inline";
           console.log(result);
-        })
+        }).catch(function(error){
+          document.getElementById("regFail").style.display="inline";
+        });
       });
     });
 
@@ -273,8 +276,11 @@ App = {
         return instance.closeElection(eid, { 
           from: App.account 
         }).then(function(result) {
+          document.getElementById("closeSuccess").style.display="inline";
           console.log(result);
-        })
+        }).catch(function(error){
+          document.getElementById("closeFail").style.display="inline";
+        });
       });
     });
 
@@ -292,8 +298,11 @@ App = {
         return instance.createElection(c1, c2, true, desc, 0, { 
           from: App.account 
         }).then(function(result) {
+          document.getElementById("createSuccess").style.display="inline";
           console.log(result);
-        })
+        }).catch(function(error){
+          document.getElementById("createFail").style.display="inline";
+        });
       });
     });
 
@@ -306,7 +315,10 @@ App = {
         return instance.vote(eid, echoice, { 
           from: App.account 
         }).then(function(result) {
+          document.getElementById("voteSuccess").style.display="inline";
           console.log(result);
+        }).catch(function(error){
+          document.getElementById("voteFail").style.display="inline";
         })
       });
     });

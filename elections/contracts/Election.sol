@@ -51,6 +51,7 @@ contract Election {
     }
     
     function register(string memory _name) public {
+        require(registrations[msg.sender]!=true);
         noOfUsers++;
         users[msg.sender].userAddress=msg.sender;
         users[msg.sender].name=_name;

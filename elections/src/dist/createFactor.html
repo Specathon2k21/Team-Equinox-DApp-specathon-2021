@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>BFactor-Spot Factoring</title>
+        <title>Equinox Voting</title>
         <!-- Favicon-->
         
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
@@ -16,7 +16,7 @@
     <body id="page-top">
         <!-- Navigation-->
        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <a class="navbar-brand" href="index.html">BFactor</a>
+            <a class="navbar-brand" href="index.html">Equinox</a>
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -118,7 +118,12 @@
                             <div id="success"></div>
                             <div class="form-group"><button class="btn btn-primary btn-lg" id="closeElection">Close</button></div>
 
-                              
+                             <div class="alert alert-success" id="closeSuccess" style="display:none;" role="alert">
+                                  Election Closed Successfully
+                                </div>
+                                <div class="alert alert-danger" id="closeFail" style="display:none;" role="alert">
+                                  Couldn't close the election. The election is probably already closed or you're not the owner.
+                                </div> 
                           </div>
                       </div>
                     </div>

@@ -7,10 +7,10 @@ A centralized voting system requires complete trust in the organization(that con
 
 ## Tech Stack Implemented
 
-Frontend: HTML, CSS, Bootstrap 4
-Backend: JavaScript
-Smart Contract: Ethereum Smart Contract
-Server: NodeJS Lite Server
+Frontend: HTML, CSS, Bootstrap 4 <br/>
+Backend: JavaScript  <br/>
+Smart Contract: Ethereum Smart Contract  <br/>
+Server: NodeJS Lite Server  <br/>
 
 
 ## Setup

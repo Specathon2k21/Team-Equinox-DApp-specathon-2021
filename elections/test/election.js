@@ -3,7 +3,7 @@ const truffleAssert = require('truffle-assertions');
 
 //We need Web3 to sign transactions
 const Web3 = require("web3")
-const BFactor = artifacts.require("BFactor");
+const Election = artifacts.require("Election");
 App = {
     web3Provider: null,
     web3: null,
@@ -14,16 +14,13 @@ require('chai')
     .use(require('chai-as-promised'))
     .should()
 
-contract('BFactor', (accounts) => {
-    var bf;
+contract('Election', (accounts) => {
+    var election;
     var bizs, debs, facs;
 
     before(async () => {
-        bf = await BFactor.new("Test BFactor");
-        await bf.createBusiness("B1", accounts[0],"location1","telephone1","email1");
-        await bf.createDebtor("D1", accounts[1],"location2","telephone2","email2");
-        await bf.createFactor("F1", accounts[2],"location3","telephone3","email3");
-
+        election = await Election.new();
+        
         //Instantiating web3 provider
         if (typeof web3 !== 'undefined') {
             App.web3Provider = web3.currentProvider;
@@ -36,41 +33,96 @@ contract('BFactor', (accounts) => {
 
     })
 
-    describe('Bfactor initialisation', async () => {
-        it('should create a new business', async () => {
-            bizs = await bf.businesses
-            assert.notEqual(bizs, null)
+    describe('Election initialisation', async () => {
+        it('Users initialized to 0', async () => {
+            users = await election.getNumberOfUsers();
+            noOfUsers=parseInt(users);
+            assert.equal(noOfUsers, 0)
         })
 
-        it('should set the business name and account correctly', async () => {
-            const biz = await bf.businesses(accounts[0])
-            assert.equal(biz.name, "B1", "Business name was not set correctly")
-            assert.equal(biz.account, accounts[0], "Business is not assigned to correct address")
+        it('No of elections initialized to 0', async () => {
+            elections = await election.noOfElections();
+            noOfElections=parseInt(elections)
+            assert.equal(noOfElections, 0)
         })
 
-        it('should create a new debtor', async () => {
-            debs = await bf.debtors
-            assert.notEqual(debs, null)
-        })
-
-        it('should set the debtor name and account correctly', async () => {
-            const deb = await bf.debtors(accounts[1])
-            assert.equal(deb.name, "D1", "Debtor name was not set correctly")
-            assert.equal(deb.account, accounts[1], "Debtor is not assigned to correct address")
-        })
-
-        it('should create a new factor', async () => {
-            facs = await bf.factors
-            assert.notEqual(facs, null)
-        })
-
-        it('should set the factor name and account correctly', async () => {
-            const fac = await bf.factors(accounts[2])
-            assert.equal(fac.name, "F1", "Factor name was not set correctly")
-            assert.equal(fac.account, accounts[2], "Factor is not assigned to correct address")
-        })
+        
     })
 
+    describe('Registering', async () => {
+        it('User John Doe Registers', async () => {
+            let result = await election.register('John Doe' , {from: accounts[0]});
+            
+        })
+
+        it('User Jane Doe Registers', async () => {
+            let result = await election.register('Jane Doe' , {from: accounts[1]});
+            
+        })
+
+        it('User Albert Registers', async () => {
+            let result = await election.register('Albert' , {from: accounts[2]});
+            
+        })
+
+        it('Users count incremented to 3', async () => {
+            users = await election.getNumberOfUsers();
+            noOfUsers=parseInt(users);
+            assert.equal(noOfUsers, 3)
+            
+        })
+   
+    })
+
+    describe('Creating Election', async () => {
+    
+        it('Creates an election', async () => {
+            let result = await election.createElection('C1','C2',false,'New Election',0 , {from: accounts[0]});
+            
+        })
+   
+    })
+
+    describe('Voting', async () => {
+    
+        it('Vote to candidate 1', async () => {
+            let result = await election.vote(1,1, {from: accounts[0]});
+            
+        })
+        it('Vote to candidate 2', async () => {
+            let result = await election.vote(1,2, {from: accounts[1]});
+            
+        })
+        it('Vote to candidate 1 again', async () => {
+            let result = await election.vote(1,1, {from: accounts[2]});
+            
+        })
+        it('Checks if candidate 1 received 2 votes', async () => {
+            let result = await election.elections(1);
+            let count1=result.optCount1;
+            let count2=result.optCount2;
+            assert.equal(count1, 2);
+            
+        })
+        it('Checks if candidate 2 received 1 vote', async () => {
+            let result = await election.elections(1);
+            let count1=result.optCount1;
+            let count2=result.optCount2;
+            assert.equal(count2, 1);
+            
+        })
+    })
+    describe('Closing Election', async () => {
+    
+        it('Should close the election', async () => {
+            let result = await election.closeElection(1,{from: accounts[0]});
+            
+        })
+        
+    })
+
+
+    /*
     describe('Manage Invoices', async () => {
         let result
         let inv
@@ -78,10 +130,10 @@ contract('BFactor', (accounts) => {
         let invOwner
 
         it('should commit invoice hash', async () => {
-            let hashedData = await bf.getInvoiceHash(accounts[0], accounts[1], web3.utils.toWei('10', 'ether'), {from: accounts[0]})
-            let invoiceId = await bf.createInvoiceId()
+            let hashedData = await election.getInvoiceHash(accounts[0], accounts[1], web3.utils.toWei('10', 'ether'), {from: accounts[0]})
+            let invoiceId = await election.createInvoiceId()
             
-            result = await bf.commit(accounts[0], hashedData, invoiceId, {from: accounts[0]})
+            result = await election.commit(accounts[0], hashedData, invoiceId, {from: accounts[0]})
 
             const event = result.logs[0].args
             assert.equal(hashedData, event.dataHash);
@@ -92,7 +144,7 @@ contract('BFactor', (accounts) => {
         it('should allow debtor to confirm invoice hash', async () => {
             console.log(invId);
             console.log(invOwner);
-           result =  await bf.acknowledgeInvoice(invId, web3.utils.toWei('10', 'ether'), invOwner, {from: accounts[1]})
+           result =  await election.acknowledgeInvoice(invId, web3.utils.toWei('10', 'ether'), invOwner, {from: accounts[1]})
 
            const event = result.logs[0].args
            assert.equal(accounts[1], event.debtor);
@@ -100,8 +152,8 @@ contract('BFactor', (accounts) => {
         })
 
         it('should create invoice', async () => {
-            await bf.createInvoice(invId, accounts[1], web3.utils.toWei('10', 'ether'), {from: accounts[0]})
-            inv = await bf.invoices(1)
+            await election.createInvoice(invId, accounts[1], web3.utils.toWei('10', 'ether'), {from: accounts[0]})
+            inv = await election.invoices(1)
             assert.equal(inv.amount, web3.utils.toWei('10', 'ether'), "Invoice does not have the correct amount")
             assert.equal(inv.owner, accounts[0], "Invoice does not have the correct owner")
             assert.equal(inv.issuedTo, accounts[1], "Invoice does not have the correct debtor")
@@ -109,8 +161,8 @@ contract('BFactor', (accounts) => {
         })
 
         // it('should allow debtor to acknowledge invoices', async () => {
-        //     result = await bf.acknowledgeInvoice(1, {from: accounts[1]})
-        //     inv = await bf.invoices(1)
+        //     result = await election.acknowledgeInvoice(1, {from: accounts[1]})
+        //     inv = await election.invoices(1)
         //     assert.equal(inv.state, 2, "Invoice state is not changed to Acknowledge")
 
         //     const event = result.logs[0].args
@@ -119,8 +171,8 @@ contract('BFactor', (accounts) => {
         // })
 
         it('should allow business to offer invoice for factoring', async () => {
-            result = await bf.offerInvoice(1, {from: accounts[0]})
-            inv = await bf.invoices(1)
+            result = await election.offerInvoice(1, {from: accounts[0]})
+            inv = await election.invoices(1)
             assert.equal(inv.state, 3, "Invoice state is not changed to Offered")
 
             const event = result.logs[0].args
@@ -135,8 +187,8 @@ contract('BFactor', (accounts) => {
         let inv
 
         it('should reject invoice', async () => {
-            result = await bf.rejectInvoice(1, "reason for rejection", {from: accounts[2]})
-            inv = await bf.invoices(1)
+            result = await election.rejectInvoice(1, "reason for rejection", {from: accounts[2]})
+            inv = await election.invoices(1)
             assert.equal(inv.state, 2, "Invoice state is not changed to Acknowledged")
 
             // const event = result.logs[0].args
@@ -157,9 +209,9 @@ contract('BFactor', (accounts) => {
         }) 
 
         it('should accept invoice', async () => {
-            await bf.offerInvoice(1, {from: accounts[0]})
-            result = await bf.acceptInvoice(1, {from: accounts[2]})
-            inv = await bf.invoices(1)
+            await election.offerInvoice(1, {from: accounts[0]})
+            result = await election.acceptInvoice(1, {from: accounts[2]})
+            inv = await election.invoices(1)
             assert.equal(inv.state, 4, "Invoice state is not changed to Factorable")
 
             const event = result.logs[0].args
@@ -168,8 +220,8 @@ contract('BFactor', (accounts) => {
         })
 
         it('should create offer', async () => {
-            result = await bf.createOffer(1, 80, 1, {from: accounts[2]})
-            offer = await bf.offers(1)
+            result = await election.createOffer(1, 80, 1, {from: accounts[2]})
+            offer = await election.offers(1)
             assert.equal(offer.invoiceId, 1, "Offer does not have the correct invoice")
             assert.equal(offer.owner, accounts[2], "Offer doesn not have the correct owner")
             assert.equal(offer.advanceRate, 80, "Invoice doesn not have the correct advance rate")
@@ -181,8 +233,8 @@ contract('BFactor', (accounts) => {
         })
 
         it('should reject offer', async () => {
-            result = await bf.rejectOffer(1, "reason for rejection", {from: accounts[0]})
-            offer = await bf.offers(1)
+            result = await election.rejectOffer(1, "reason for rejection", {from: accounts[0]})
+            offer = await election.offers(1)
             assert.equal(offer.state, 0, "Offer state is not set to Pending")
 
             // const event = result.logs[0].args
@@ -195,8 +247,8 @@ contract('BFactor', (accounts) => {
         })
 
         it('should accept offer', async () => {
-            result = await bf.acceptOffer(1, {from: accounts[0]})
-            offer = await bf.offers(1)
+            result = await election.acceptOffer(1, {from: accounts[0]})
+            offer = await election.offers(1)
             assert.equal(offer.state, 1, "Offer state is not set to Accepted")
 
             // const event = result.logs[0].args
@@ -211,14 +263,14 @@ contract('BFactor', (accounts) => {
     describe('Factor Invoices', async () => {
 
         it('should get offer by invoice ID', async () => {
-            let offerID = await bf.getOfferByInvoiceId(1)
+            let offerID = await election.getOfferByInvoiceId(1)
             assert.equal(offerID, 1, "The offer ID is not correct")
         });
 
         it('should allow factor to send advance rate', async () => {
             let factorBalanceBefore = await web3.eth.getBalance(accounts[2])
-            let inv = await bf.invoices(1)
-            let offer = await bf.offers(1)
+            let inv = await election.invoices(1)
+            let offer = await election.offers(1)
             //It was 0.8 * inv.amount earlier
             //But the contract doesn't receive 100% wei, hence I increased the amount
             //that we send to the contract to ensure that the contract has sufficient funds
@@ -231,12 +283,12 @@ contract('BFactor', (accounts) => {
             
             try{
                 //value argument specifies how much wei we wish to send to the contract
-                await bf.sendAdvanceRate(1, {from: accounts[2], value: weiValue})
+                await election.sendAdvanceRate(1, {from: accounts[2], value: weiValue})
             }
             catch(error){
                 console.log(error)
             }
-            //await bf.withdrawAdvanceRate(1, {from: accounts[0]})
+            //await election.withdrawAdvanceRate(1, {from: accounts[0]})
             //Check factor balance after sending the advance rate
             let factorBalanceAfter = await web3.eth.getBalance(accounts[2])
             let expectedBalance = factorBalanceBefore - advanceRate
@@ -249,4 +301,5 @@ contract('BFactor', (accounts) => {
             
         });
     })
+    */
 })

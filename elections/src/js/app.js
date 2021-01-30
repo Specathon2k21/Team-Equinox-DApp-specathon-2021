@@ -158,6 +158,7 @@ App = {
     }).then(function(electionCount) {
       console.log("electionCount " + electionCount);
 
+
       
       for(var i=1; i <= electionCount; i++) {
         
@@ -170,7 +171,14 @@ App = {
             var c1=election[2];
             var c2=election[3];
             var desc=election[8];
+            var option = document.createElement("option");
+            option.value = eid;
+            
+            option.text = eid + " - " + desc;
+            /*
+            document.getElementById("activeElections").appendChild(option);
             console.log(desc);
+            */
             var candidateTemplate = "<tr><th>" + eid + "</th><td>" + desc + "</td><td>" + c1 + "</td><td>" + c2 + "</td></tr>";
             $("#electionsActive").append(candidateTemplate);
           }
